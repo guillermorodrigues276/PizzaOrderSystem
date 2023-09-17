@@ -14,6 +14,15 @@ public class Pessoa {
     private String telefone;
     private String email;
     private String cpf;
+    private String senha;
+
+    public String getSenha() {
+        return senha;
+    }
+
+    public void setSenha(String senha) {
+        this.senha = senha;
+    }
 
     public String getNome() {
         return nome;
