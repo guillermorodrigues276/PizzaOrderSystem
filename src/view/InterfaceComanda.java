@@ -3,15 +3,17 @@ package view;
 
 import java.awt.Color;
 import java.awt.Font;
-import java.awt.event.ActionEvent;
-import static java.lang.Integer.parseInt;
-import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
-public class Interface extends javax.swing.JFrame {
+public class InterfaceComanda extends javax.swing.JFrame {
+    
+    public String telefone;
+    public String nome;
+    public String email;
+    public String CPF;
 
-    public Interface() {
+    public InterfaceComanda() {
         initComponents();
         
         addPlaceHolderStyle(TextFieldNome);
@@ -20,7 +22,6 @@ public class Interface extends javax.swing.JFrame {
         addPlaceHolderStyle(TextFieldTelefone);
     }
 
-    @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
@@ -47,6 +48,7 @@ public class Interface extends javax.swing.JFrame {
         PanelComanda = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         TextFieldComanda = new javax.swing.JTextPane();
+        ButtonVoltar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -242,7 +244,7 @@ public class Interface extends javax.swing.JFrame {
             PanelComandaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(PanelComandaLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 168, Short.MAX_VALUE)
+                .addComponent(jScrollPane1)
                 .addContainerGap())
         );
         PanelComandaLayout.setVerticalGroup(
@@ -253,6 +255,13 @@ public class Interface extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
+        ButtonVoltar.setText("Voltar");
+        ButtonVoltar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ButtonVoltarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -261,10 +270,11 @@ public class Interface extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(PanelPessoa, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(34, 34, 34)
-                        .addComponent(ButtonGerarComanda))
-                    .addComponent(PanelComanda, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(PanelComanda, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(ButtonVoltar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 9, Short.MAX_VALUE)
+                        .addComponent(ButtonGerarComanda)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(PanelStatusPizza, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(12, 12, 12))
@@ -280,7 +290,9 @@ public class Interface extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addComponent(PanelComanda, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(ButtonGerarComanda)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(ButtonGerarComanda)
+                            .addComponent(ButtonVoltar))))
                 .addContainerGap())
         );
 
@@ -288,55 +300,53 @@ public class Interface extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void ButtonGerarComandaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonGerarComandaActionPerformed
-        // TODO add your handling code here:
+
+        this.nome = TextFieldNome.getText(); 
+        this.telefone = TextFieldTelefone.getText();
+        this.email = TextFieldEmail.getText();
+        this.CPF = TextFieldCPF.getText();
         
-        String nome = TextFieldNome.getText(); 
-        String telefone = TextFieldTelefone.getText();
-        String email = TextFieldEmail.getText();
-        String CPF = TextFieldCPF.getText();
+        verificacaoCaractereTelefone();
+        verificacaoCaractereEmail();
+        verificacaoCaractereCpf();
         
-        if (telefone.matches("^[0-9]*$") && telefone.length() == 11) {
-            
-        } else {
-            JOptionPane.showMessageDialog(null, "Telefone Incorreto");
-        }
-        
-        
-        
-        
-        // Tentar colocar mudança de tela, dados do usuario e depois mostrar a pizza
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
+        // Fazer tela de login
+        // Fazer hub aonde será necessario completar a tarefa antes de conseguir progredir pra proxima pagina
+        // Mostrar a comanda final e arquivar como pedido
+
         TextFieldComanda.setText
                 (
-                        "Nome: " + nome +
-                        "\nTelefone: " + telefone +
-                        "\nBorda:" + returnBorda() +
-                        "\nTamanho: " + returnTamanho() +
-                        "\nSaborr: " + ComboBoxSabores.getSelectedItem()
-                        
+                        "Nome: "                + this.nome +
+                        "\nTelefone: "        + this.telefone +
+                        "\nBorda:"              + returnBorda() +
+                        "\nTamanho: "       + returnTamanho() +
+                        "\nSabor: "             + ComboBoxSabores.getSelectedItem()
                 );
     }//GEN-LAST:event_ButtonGerarComandaActionPerformed
 
-    public void actionPerformed(ActionEvent e) {
-        JComboBox cb = (JComboBox)e.getSource();;
-        String sabores = (String)cb.getSelectedItem();
-        
-        
+    public void verificacaoCaractereTelefone() {
+        if (this.telefone.matches("^[0-9]*$") && telefone.length() == 11) { }// Telefone só recebe número
+         else 
+        {
+            JOptionPane.showMessageDialog(null, "Telefone não contem todos os numeros.");
+        }
     }
+    
+    public void verificacaoCaractereEmail() {
+        if (this.email.contains("@")) { } // Email tem que conter @
+         else 
+        {
+            JOptionPane.showMessageDialog(null, "Email deve conter @.");
+        }
+    }
+    
+    public void verificacaoCaractereCpf() {
+        if (CPF.matches("^[0-9]*$") && CPF.length() == 11) { }
+        else {
+            JOptionPane.showMessageDialog(null, "Cpf está com todos os numeros.");
+        }
+    }
+    
     
     private void TextFieldNomeFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_TextFieldNomeFocusGained
         // TODO add your handling code here:
@@ -410,6 +420,14 @@ public class Interface extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_TextFieldTelefoneFocusLost
 
+    private void ButtonVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonVoltarActionPerformed
+
+        LoginPage login = new LoginPage();
+        
+        login.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_ButtonVoltarActionPerformed
+
     
     public String returnBorda() {
         if(RadioBtnSim.isSelected() == true){
@@ -447,34 +465,13 @@ public class Interface extends javax.swing.JFrame {
         textField.setForeground(Color.BLACK);
     }
     
+   
+    
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Interface.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Interface.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Interface.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Interface.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
             public void run() {
-                new Interface().setVisible(true);
+                new InterfaceComanda().setVisible(true);
             }
         });
     }
@@ -483,6 +480,7 @@ public class Interface extends javax.swing.JFrame {
     private javax.swing.JButton ButtonGerarComanda;
     private javax.swing.ButtonGroup ButtonGroupBordaSimNao;
     private javax.swing.ButtonGroup ButtonGroupTamanho;
+    private javax.swing.JButton ButtonVoltar;
     private javax.swing.JComboBox<String> ComboBoxSabores;
     private javax.swing.JLabel LabelBorda;
     private javax.swing.JLabel LabelSabores;
