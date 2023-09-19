@@ -38,6 +38,7 @@ public class InterfaceTamanho extends javax.swing.JFrame {
         ButtonProximoTamanho = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setAlwaysOnTop(true);
         setBounds(new java.awt.Rectangle(340, 300, 0, 0));
 
         LabelTamanho.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N

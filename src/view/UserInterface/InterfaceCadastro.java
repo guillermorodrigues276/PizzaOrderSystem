@@ -4,16 +4,16 @@ package view.UserInterface;
 import java.awt.Color;
 import java.awt.Font;
 import javax.swing.JTextField;
+import model.Pessoa;
 
 public class InterfaceCadastro extends javax.swing.JFrame {
     
-    public String nome;
-    public String telefone;
-    public String email;
-    public String cpf;
-    public String senha;
+    private String nomeCadastro;
+    private String senhaCadastro;
+    private Pessoa pessoa = new Pessoa();
     
     public InterfaceCadastro() {
+        
         initComponents();
         
          addPlaceHolderStyle(TextFCadastroNome);
@@ -22,6 +22,7 @@ public class InterfaceCadastro extends javax.swing.JFrame {
         addPlaceHolderStyle(TextFCadastroTelefone);
         addPlaceHolderStyle(TextPCadastroSenha);
     }
+
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
@@ -47,7 +48,6 @@ public class InterfaceCadastro extends javax.swing.JFrame {
             }
         });
 
-        TextFCadastroNome.setText("Nome");
         TextFCadastroNome.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 TextFCadastroNomeFocusGained(evt);
@@ -87,7 +87,7 @@ public class InterfaceCadastro extends javax.swing.JFrame {
             }
         });
 
-        TextPCadastroSenha.setText("jPasswordField1");
+        TextPCadastroSenha.setText("Senha");
         TextPCadastroSenha.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 TextPCadastroSenhaFocusGained(evt);
@@ -160,25 +160,15 @@ public class InterfaceCadastro extends javax.swing.JFrame {
 
     private void ButtonCadastrarCadastroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonCadastrarCadastroActionPerformed
         
-        cadastrar();
+        pessoa.setNome(TextFCadastroNome.getText());
         
         LoginPage loginPage = new LoginPage();
         loginPage.setVisible(true);
         this.setVisible(false);
+
         
-        System.out.println(getNome());
     }//GEN-LAST:event_ButtonCadastrarCadastroActionPerformed
 
-    public void cadastrar() {
-        
-        nome = TextFCadastroNome.getText();
-        telefone = TextFCadastroTelefone.getText();
-        email = TextFCadastroEmail.getText();
-        cpf = TextFCadastroCPF.getText();
-        senha = String.valueOf(TextPCadastroSenha.getPassword());
-
-    }
-    
     private void TextFCadastroNomeFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_TextFCadastroNomeFocusGained
         // TODO add your handling code here:
         if(TextFCadastroNome.getText().equals("Nome")) {
@@ -247,10 +237,19 @@ public class InterfaceCadastro extends javax.swing.JFrame {
 
     private void TextPCadastroSenhaFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_TextPCadastroSenhaFocusGained
         // TODO add your handling code here:
+        
+        if (TextPCadastroSenha.getText().equals("Senha")) {
+            TextPCadastroSenha.setText("");
+            TextFCadastroTelefone.setForeground(new Color(153, 153, 153));
+        }
     }//GEN-LAST:event_TextPCadastroSenhaFocusGained
 
     private void TextPCadastroSenhaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_TextPCadastroSenhaFocusLost
         // TODO add your handling code here:
+         if (TextPCadastroSenha.getText().equals("")) {
+            TextPCadastroSenha.setText("Senha");
+            TextPCadastroSenha.setForeground(new Color(153, 153, 153));
+        }
     }//GEN-LAST:event_TextPCadastroSenhaFocusLost
   
     
@@ -267,55 +266,30 @@ public class InterfaceCadastro extends javax.swing.JFrame {
         textField.setFont(font);
         textField.setForeground(Color.BLACK);
     }
+
+    public String getNomeCadastro() {
+        return nomeCadastro;
+    }
+
+    public void setNomeCadastro(String nomeCadastro) {
+        this.nomeCadastro = nomeCadastro;
+    }
+
+    public String getSenhaCadastro() {
+        return senhaCadastro;
+    }
+
+    public void setSenhaCadastro(String senhaCadastro) {
+        this.senhaCadastro = senhaCadastro;
+    }
+
+  
     
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
-    public String getTelefone() {
-        return telefone;
-    }
-
-    public void setTelefone(String telefone) {
-        this.telefone = telefone;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getCpf() {
-        return cpf;
-    }
-
-    public void setCpf(String cpf) {
-        this.cpf = cpf;
-    }
-
-    public String getSenha() {
-        return senha;
-    }
-
-    public void setSenha(String senha) {
-        this.senha = senha;
-    }
-
-    
-    
-
     public static void main(String args[]) {
 
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new InterfaceCadastro().setVisible(true);
+                new InterfaceCadastro() .setVisible(true);
             }
         });
     }
@@ -326,8 +300,14 @@ public class InterfaceCadastro extends javax.swing.JFrame {
     private javax.swing.JPanel Panel;
     private javax.swing.JTextField TextFCadastroCPF;
     private javax.swing.JTextField TextFCadastroEmail;
-    private javax.swing.JTextField TextFCadastroNome;
+    public javax.swing.JTextField TextFCadastroNome;
     private javax.swing.JTextField TextFCadastroTelefone;
-    private javax.swing.JPasswordField TextPCadastroSenha;
+    public javax.swing.JPasswordField TextPCadastroSenha;
     // End of variables declaration//GEN-END:variables
+
+    public Pessoa getPessoa() {
+        return pessoa;
+    }
+
+
 }
